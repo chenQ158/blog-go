@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.PageName}}</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+        {{template "navbar" .}}
+        </div>
+    </div>
+    <div class="container" style="width: 500px; margin-top: 200px;">
+        <p style="color:red;">{{.Error}}</p>
+        <form role="form" method="POST" action="/comm/login">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Account</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Account"
+                    name="uname">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="pwd"
+                    name="pwd">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="autoLogin"> 自动登录
+                </label>
+            </div>
+            <button type="submit" class="btn btn-default">登录</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

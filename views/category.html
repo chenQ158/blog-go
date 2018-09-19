@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{.PageName}}</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="/static/css/pagination.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+        {{template "navbar" .}}
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 80px;">
+        <h1>分类列表</h1>
+        <form role="form" method="GET" action="/user/category/add">
+            <div class="form-group">
+                <label for="exampleInputEmail1">分类名称</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Account"
+                       name="name" style="display:inline-block;width: 50%;">
+                <button type="submit" class="btn btn-default">添加</button>
+            </div>
+        </form>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge">操作</span>
+                <span class="badge">文章数量</span>
+                分类名称
+            </li>
+
+            {{/*{{ range .Categories}}*/}}
+            {{ range .Page.List}}
+            <li class="list-group-item">
+                    <a class="badge" href="/user/category/del?id={{.Id}}">删除</a>
+                <span class="badge">{{.TopicCount}}</span>
+                <a href="/user/category/topic_list?id={{.Id}}&page=1">{{.Title}}</a>
+            </li>
+            {{end}}
+        </ul>
+
+        <script type="text/javascript">
+            window.page_url = "/user/category/list";
+        </script>
+        {{template "page".}}
+    </div>
+</div>
+</body>
+</html>

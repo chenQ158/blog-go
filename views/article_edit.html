@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{.PageName}}</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+        {{template "navbar" .}}
+        </div>
+    </div>
+
+    <div class="container" style="width: 850px; margin-top: 100px;">
+        <h1>文章编辑</h1>
+        <form role="form" method="POST" action="/user/topic/update">
+            <p style="color:red;">{{.Error}}</p>
+            <input type="hidden" name="id" value="{{.Topic.Id}}"/>
+            <div class="form-group">
+                <label for="title">标题</label>
+                <input type="text" class="form-control" id="title" placeholder="title"
+                       name="title" value="{{.Topic.Title}}">
+            </div>
+            {{/*<div class="form-group">
+                <label for="author">分类</label>
+                <select class="form-control" name="category">
+                    */}}{{/*<option value="{{.Topic.CategoryId}}" selected>{{.}}</option>*/}}{{/*
+                    {{range .Categories}}
+                    <option value="{{.Id}}" {{if .Id = .Topic.Id}}selected{{end}}>{{.Title}}</option>
+                    {{end}}
+                </select>
+            </div>*/}}
+            <div class="form-group">
+                <label for="attachment">标签</label>
+                <input type="text" class="form-control" id="attachment" placeholder="attachment"
+                       name="attachment" value="{{.Topic.Attachmemt}}">
+            </div>
+            <div class="form-group">
+                <label for="content">内容</label>
+                <div id="div1">
+                {{str2html .Topic.Content}}
+                </div>
+                <textarea name="content" style="display: none;" id="editor"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default">提交</button>
+        </form>
+
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+        <script type="text/javascript">
+            var E = window.wangEditor
+            var editor = new E('#div1')
+            var $text1 = $('#editor')
+            editor.customConfig.onchange = function (html) {
+                // 监控变化，同步更新到 textarea
+                $text1.val(html)
+            }
+            editor.create()
+            // 初始化 textarea 的值
+            $text1.val(editor.txt.html())
+        </script>
+    </div>
+</div>
+</body>
+</html>

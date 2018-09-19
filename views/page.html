@@ -1,0 +1,22 @@
+{{define "page"}}
+<div id="page"></div>
+
+<script type="text/javascript" src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/pagination.js"></script>
+<script type="text/javascript">
+    var onPagechange = function(page){
+        // window.location = "/?page="+page
+        window.location = window.page_url + "?page=" + page;
+    }
+    var obj = {
+        wrapid:'page', //页面显示分页器容器id
+        total:{{.Page.TotalCount}},//总条数
+        pagesize:{{.Page.PageSize}},//每页显示10条
+        currentPage:{{.Page.PageNo}},//当前页
+        onPagechange:onPagechange,
+        btnCount:7 //页数过多时，显示省略号的边界页码按钮数量，可省略，且值是大于5的奇数
+    }
+    pagination.init(obj);
+</script>
+{{end}}
